@@ -9,7 +9,7 @@ function PostList() {
   useEffect(() => {
     async function loadPosts() {
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${API_URL}/posts`, {
           headers: {
             'Accept': 'application/json',
           },
