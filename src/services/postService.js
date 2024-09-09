@@ -29,10 +29,42 @@ async function deletePost(id) {
     throw new Error(response.statusText)
   }
 
-  if (response.status ===  204) {
+  if (response.status === 204) {
     return null
   }
   return response.json();
 }
 
-export { fetchAllPosts, deletePost, fetchPost }
+async function createPost(postData) {
+  const response = await fetch(`${API_URL}/posts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData)
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  return response.json();
+}
+
+async function updatePost(id, potsData) {
+  const response = await fetch(`${API_URL}/posts/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(potsData)
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  return response.json();
+}
+
+export {fetchAllPosts, deletePost, fetchPost, createPost, updatePost}

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants.js";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {createPost} from "../../services/postService.js";
 
 function NewPostForm() {
   const [title, setTitle] = useState("");
@@ -10,25 +10,17 @@ function NewPostForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const postData = { title, body }
+    const postData = {title, body}
 
-    const response = await fetch(`${API_URL}/posts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData)
-    });
-
-    if (response.ok) {
-      const { id } = await response.json();
-      navigate(`/posts/${id}`)
-    } else {
-      console.log("error occurred")
+    try {
+      const response = await createPost(postData);
+      navigate(`/posts/${response.id}`)
+    } catch (e) {
+      console.log('error', e);
     }
   };
 
-  return(
+  return (
     <div>
       <h2>Create a New Post</h2>
       <form onSubmit={handleSubmit}>

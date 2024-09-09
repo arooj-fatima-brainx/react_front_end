@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {API_URL} from "../../constants.js";
-import { fetchAllPosts, deletePost } from "../../services/postService.js";
+import {fetchAllPosts, deletePost} from "../../services/postService.js";
 import {Link} from 'react-router-dom';
 
 function PostList() {
@@ -19,6 +18,7 @@ function PostList() {
         setLoading(false);
       }
     }
+
     loadPosts();
   }, []);
 
@@ -49,7 +49,7 @@ function PostList() {
           </h2>
           <div className="post-links">
             <Link to={`/posts/${post.id}/edit`}>Edit</Link>
-            { " | " }
+            {" | "}
             <button onClick={() => deletePostHandler(post.id)}>Delete</button>
           </div>
         </div>
